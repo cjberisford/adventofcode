@@ -1,10 +1,7 @@
 with open('input/input.txt') as f:
     depths = f.read().splitlines()
 
-print(depths)
-
 count = 0
-
 
 # Create new list with rolling sum
 windows = []
@@ -20,6 +17,5 @@ for i, window in enumerate(windows, 1):
     if window > windows[i-2]:
         count += 1
 
-# Solution to part 1: 1121
+# Solution to part 2: 1065
 print(count)
-
