@@ -25,45 +25,56 @@ def check_winner(board):
         if count >= 5:
             return True
 
-    
-start = time.perf_counter()
+    return False
 
-winner_found = False
-winning_board = []
+def sum_board(board):
+    total = 0
+    for row in board:
+        for number in row:
+            if number != 'x':
+                total += int(number)
+    return total
 
-boards = []
-with open('input/input.txt') as f:
-    boards = f.read().split('\n\n')
+def main():
 
-draw_order = boards[0].split(',')
-parsed_boards = [parse_board(board) for board in boards[1:]]
-winner_found = False
-winning_number = 0
-for n in draw_order:
-    parsed_boards = [[['x' if b == n else b for b in row] for row in board] for board in parsed_boards]
+    start = time.perf_counter()
 
-    # Check for winner
-    for board in parsed_boards:
-        if(check_winner(board)):
-            winner_found = True
-            winning_board = board
-            winning_number = n
+    winner_found = False
+    winning_board = []
+
+    boards = []
+    with open('input/input.txt') as f:
+        boards = f.read().split('\n\n')
+
+    draw_order = boards[0].split(',')
+    parsed_boards = [parse_board(board) for board in boards[1:]]
+    winner_found = False
+    winning_number = 0
+    for n in draw_order:
+        parsed_boards = [[['x' if b == n else b for b in row] for row in board] for board in parsed_boards]
+
+        # Check for winner
+        for board in parsed_boards:
+            if(check_winner(board)):
+                winner_found = True
+                winning_board = board
+                winning_number = n
+                break
+
+        if winner_found:
             break
 
-    if winner_found:
-        break
+    # Add all unmarked numbers togethe
 
-# Add all unmarked numbers together
-total = 0
-for row in winning_board:
-    for number in row:
-        if number != 'x':
-            total += int(number)
+    total = sum_board(winning_board)
+    print(winning_number)
+    print(total * int(winning_number))
 
-print(winning_number)
-print(total * int(winning_number))
+        
+    stop = time.perf_counter()
+    print(f"Executed in {stop-start:0.4f} seconds")
 
-     
-stop = time.perf_counter()
-print(f"Executed in {stop-start:0.4f} seconds")
 
+
+if __name__ == '__main__':
+    main()
