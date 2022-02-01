@@ -1,26 +1,51 @@
 from input_parse import *
 import numpy as np
+import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
+from collections import Counter
 
-NUM_DAYS = 200
+NUM_DAYS = 256
+
+def exponential(x, a, b):
+    return a*np.exp(b*x)
 
 def main():
 
-    with open('input/example.txt') as f:
-        fish_list = f.read().split(',')
+    counts = {8: 0, 7: 0, 6: 0, 5: 0, 4: 0, 3: 0, 2: 0, 1: 0, 0: 0}
 
+    # Import input data
+    with open('input/input.txt') as f:
+        fish_list = f.read().split(',')
     fish_list = np.array([int(x) for x in fish_list])
 
-    total = 0
+    # Init dict with imported values
+    input_counts = Counter(fish_list)
+    for key, value in input_counts.items():
+        counts[key] = value
+
+    print(counts)
+
     for day in range(NUM_DAYS):
-        print(day)
-        zeros = fish_list.size - np.count_nonzero(fish_list)
-        new_fish = [9] * zeros
-        fish_list = np.append(fish_list, new_fish)
-        fish_list = fish_list - 1
-        fish_list = np.where(fish_list == -1, 6, fish_list)
-        
 
-    print(len(fish_list))
+        new_dict = {8: 0, 7: 0, 6: 0, 5: 0, 4: 0, 3: 0, 2: 0, 1: 0, 0: 0}
+        for key, value in counts.items():
+            new_dict[key] = value
 
+        for day, count in counts.items():
+            if day == 0:
+                new_dict[8] = count
+                new_dict[6] += count
+            else:
+                new_dict[day-1] = count
+
+        counts = new_dict
+        print(counts)
+
+    total = 0
+    for _, val in counts.items():
+        total += val
+    print(total)
+
+   
 if __name__ == '__main__':
     main()
