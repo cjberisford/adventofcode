@@ -1,3 +1,6 @@
+from collections import Counter
+import random
+
 def import_file():
     with open('input/example.txt') as f:
         transitions = f.read().split('\n')
@@ -13,52 +16,81 @@ def get_transition_model(transition_pairs):
 
     return transitions
 
-def pathfinder(transitions, successors, antecedents, current_node, paths, visited):
+def get_prohibited_transitions(successors, antecedents):
 
+    # Count occurrences of small caves
+    small_caves = [x for x in antecedents if x.islower()]
+    small_cave_count = Counter(small_caves)
+    max_visits = small_cave_count.most_common()
+
+    # Compile list of prohibited locations
+    prohibited_transitions = []
+    for node in antecedents:
+        if small_cave_count[node] >= 1 and max_visits[0][1] >= 2:
+            prohibited_transitions.append(node)
+    
+    prohibited_transitions.append('start')
+    prohibited_transitions.append('end')
+
+    return prohibited_transitions
+
+
+def pathfinder(transitions, successors, antecedents, current_node, paths):
+
+    print(antecedents)
+
+    # Get list of possible transitions from current state
     successors = transitions[current_node]
-
+    
     # Add node to path history
     antecedents.append(current_node)
-    if current_node.islower():
-        visited.append(current_node)
 
-    # print(f"Pathfinder is located at {current_node} with possible transitions to {successors}. Current path is {antecedents}")
     for successor in successors:
+
+        # Scan antecedents for small caves, creating a list of nodes that can't be visited dynamically
+        invalid_transitions = get_prohibited_transitions(successors, antecedents)
+
+        # # Try shuffling order of successors -- Might help, who knows?
+        # random.shuffle(successors)
+
         if successor == 'end' and antecedents + ['end'] not in paths:
+            # New path found, add it to paths and keep looking for more routes
+            print("FOUND PATH, adding...")
             antecedents.append('end')
             path = antecedents
+            # paths.append(path)
             return path
         elif successor == 'end':
             pass
             # print("This path has previously been found, returning to parent node")
 
-        if successor not in visited and successor != 'end':
-            # print("Branching")
-            path = pathfinder(transitions, successors, antecedents, successor, paths, visited)
+        if successor not in invalid_transitions:
+            path = pathfinder(transitions, successors, antecedents, successor, paths)
             if path:
                 return path
 
     # Node unused to delete from pathing history -- MUST be the LAST element
     antecedents.pop()
-    if current_node.islower():
-        visited.remove(current_node)
-
  
 def explore(transitions):
 
     paths = []
+    starting_node = 'start'
+    antecedents = []
+    successors = transitions['start']
+
 
     while None not in paths:
         antecedents = []
-        visited = []
-        successors = transitions['start']
-        path = pathfinder(transitions, successors, antecedents, 'start', paths, visited)
+        print("STARTING PATHFINDER")
+        path = pathfinder(transitions, successors, antecedents, starting_node, paths)
+        print("TERMINATING FUNCTION CALL, FOUND A PATH!", path)
+        print(" ")
         paths.append(path)
 
     for path in paths[:-1]:
         print(path)
-
-    print(len(paths[:-1]))
+    print("Paths found:", len(paths[:-1]))
 
     
 def main():
