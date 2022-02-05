@@ -1,11 +1,12 @@
 import re
 import numpy as np
 from collections import Counter
+import time
 
-STEPS = 40
+STEPS = 20
 
 def import_file():
-    with open('input/input.txt') as f:
+    with open('input/example.txt') as f:
         file = f.read().split('\n')
 
     index = file.index('')
@@ -55,7 +56,7 @@ def main():
 
     for step in range(STEPS): 
 
-        print(step)
+        start_stage_1 = time.time()
         
         # Find all applicable transition rules
         applicable_rules = []
@@ -65,15 +66,26 @@ def main():
                 for index_of_match in indexes_of_match:
                     applicable_rules.append((index_of_match, transition))
 
+        end_stage_1 = time.time()
+
+
+        list_polymer_template = list(polymer_template)
         # Sort applicable transition rules and then apply them
         applicable_rules.sort(key=lambda x: x[0])
         adjusted_index = 1
         for index, letter in applicable_rules:
-            polymer_template = polymer_template[:index+adjusted_index] + letter + polymer_template[index+adjusted_index:]
+            list_polymer_template.insert(index+adjusted_index, letter)
             adjusted_index += 1
+        polymer_template = "".join(list_polymer_template)
 
-        
-        # print(f"After step {step + 1}: {polymer_template}")
+    
+        end_stage_2 = time.time()       
+
+        time_1 = round(end_stage_1 - start_stage_1, 4)
+        time_2 = round(end_stage_2 - end_stage_1, 4)
+    
+        print(f"Step {step}: Cycle time: {time_1}s. Constructed in {time_2}s. Polymer length: {len(polymer_template)} characters")
+
 
     # Count elements
     counts = Counter(polymer_template)
