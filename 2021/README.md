@@ -16,3 +16,4 @@
 - [Day 11](https://adventofcode.com/2021/day/11) ⭐⭐
 - [Day 12](https://adventofcode.com/2021/day/12) ⭐⭐ (Note: Part 2 needs optimising - recursive tree search)
 - [Day 13](https://adventofcode.com/2021/day/12) ⭐⭐
+- [Day 14](https://adventofcode.com/2021/day/12) ⭐⭐
