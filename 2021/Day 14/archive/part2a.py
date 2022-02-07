@@ -38,12 +38,13 @@ def main():
             sequence = previous_element + element
 
             # Look up sequence in insertion pairs
-            if sequence in insertion_pairs:
-                construction_string.append((initial_position, insertion_pairs[sequence]))
-                adjusted_index += 1
+            construction_string.append((initial_position, insertion_pairs[sequence]))
+            adjusted_index += 1
 
             construction_string.append((initial_position + adjusted_index, element))
             previous_element = element
+
+
 
         end_stage_1 = time.time()
         polymer_template = "".join([x[1] for x in construction_string])
