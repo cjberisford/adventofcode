@@ -1,4 +1,7 @@
-with open('input/input.txt') as f:
+from pathlib import Path
+path = Path(__file__).parent / "input/input.txt"
+
+with open(path) as f:
     depths = f.read().splitlines()
 
 count = 0

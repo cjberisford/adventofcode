@@ -1,6 +1,9 @@
 import time
 import numpy as np
 
+from pathlib import Path
+path = Path(__file__).parent / "input/input.txt"
+
 def parse_board(string):
     parse = string.split('\n')
     arr = []
@@ -43,7 +46,7 @@ def main():
     winning_board = []
 
     boards = []
-    with open('input/input.txt') as f:
+    with open(path) as f:
         boards = f.read().split('\n\n')
 
     draw_order = boards[0].split(',')
@@ -67,12 +70,12 @@ def main():
     # Add all unmarked numbers togethe
 
     total = sum_board(winning_board)
-    print(winning_number)
+    # print(winning_number)
     print(total * int(winning_number))
 
         
     stop = time.perf_counter()
-    print(f"Executed in {stop-start:0.4f} seconds")
+    # print(f"Executed in {stop-start:0.4f} seconds")
 
 
 

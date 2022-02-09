@@ -1,5 +1,8 @@
 import numpy as np
 
+from pathlib import Path
+path = Path(__file__).parent / "input/input.txt"
+
 segment = { 0: 6,
             1: 2,
             2: 5,
@@ -10,10 +13,10 @@ segment = { 0: 6,
             7: 3,
             8: 7,
             9: 6 }
-        
+    
 
 def import_file():
-    with open('input/input.txt') as f:
+    with open(path) as f:
         input = f.read().split('\n')
 
     signal_patterns = []

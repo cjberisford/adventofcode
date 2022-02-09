@@ -2,13 +2,10 @@ import re
 import numpy as np
 from collections import Counter
 
-from pathlib import Path
-path = Path(__file__).parent / "input/input.txt"
-
-STEPS = 10
+STEPS = 40
 
 def import_file():
-    with open(path) as f:
+    with open('input/input.txt') as f:
         file = f.read().split('\n')
 
     index = file.index('')

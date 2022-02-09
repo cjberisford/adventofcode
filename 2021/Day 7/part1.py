@@ -1,7 +1,10 @@
 import numpy as np
 
+from pathlib import Path
+path = Path(__file__).parent / "input/input.txt"
+
 def import_file():
-    with open('input/input.txt') as f:
+    with open(path) as f:
         instructions = f.read().split(',')
     instructions = np.array([int(x) for x in instructions])
     return instructions

@@ -51,10 +51,10 @@ def main():
     print(solution)
 
     # Create visualisation
-    pixel_plot = plt.imshow(vents, cmap='Greens', interpolation='nearest', origin='lower') 
-    plt.colorbar(pixel_plot)
-    plt.gca().invert_yaxis()
-    plt.savefig('output/pixel_plot.png')
+    # pixel_plot = plt.imshow(vents, cmap='Greens', interpolation='nearest', origin='lower') 
+    # plt.colorbar(pixel_plot)
+    # plt.gca().invert_yaxis()
+    # plt.savefig('output/pixel_plot.png')
 
 if __name__ == '__main__':
     main()

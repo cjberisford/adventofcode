@@ -1,5 +1,8 @@
+from pathlib import Path
+path = Path(__file__).parent / "input/input.txt"
+
 def import_file():
-    with open('input/example.txt') as f:
+    with open(path) as f:
         transitions = f.read().split('\n')
     transitions_pairs = [tuple(line.split('-')) for line in transitions]
 

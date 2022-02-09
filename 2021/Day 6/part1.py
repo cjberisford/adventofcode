@@ -1,7 +1,7 @@
 from input_parse import *
 import numpy as np
 
-NUM_DAYS = 256
+NUM_DAYS = 80
 
 def process_lanternfish(fish_list, fish, i):
 
@@ -19,8 +19,6 @@ def main():
 
     starting_count = len(fish_list)
     for day in range(NUM_DAYS):
-
-        print("Processing Day", day)
         
         updated_fish_list = fish_list
         

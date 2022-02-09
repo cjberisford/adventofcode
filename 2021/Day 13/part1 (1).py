@@ -1,11 +1,8 @@
 import re
 import numpy as np
 
-from pathlib import Path
-path = Path(__file__).parent / "input/input.txt"
-
 def import_file():
-    with open(path) as f:
+    with open('input/input.txt') as f:
         file = f.read().split('\n')
 
     index = file.index('')

@@ -1,5 +1,8 @@
+from pathlib import Path
+path = Path(__file__).parent / "input/input.txt"
+
 commands = []
-with open("input/input.txt") as f:
+with open(path) as f:
     for line, instruction in enumerate(f):
         command, scalar = instruction.split()
         commands.append((command, int(scalar)))

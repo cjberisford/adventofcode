@@ -3,8 +3,11 @@ from collections import Counter
 
 points = {')': 3, ']': 57, '}': 1197, '>': 25137}
 
+from pathlib import Path
+path = Path(__file__).parent / "input/input.txt"
+
 def import_file():
-    with open('input/input.txt') as f:
+    with open(path) as f:
         input_list = f.read().split('\n')
 
     return input_list

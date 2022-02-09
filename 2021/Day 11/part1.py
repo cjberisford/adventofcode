@@ -1,9 +1,12 @@
 import numpy as np
 
+from pathlib import Path
+path = Path(__file__).parent / "input/input.txt"
+
 STEPS = 1000
 
 def import_file():
-    with open('input/input.txt') as f:
+    with open(path) as f:
         input_list = f.read().split('\n')
 
     map = np.array([[int(octopus) for octopus in line] for line in input_list])

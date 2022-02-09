@@ -1,7 +1,9 @@
 import numpy as np
+from pathlib import Path
+path = Path(__file__).parent / "input/input.txt"
 
 def import_file():
-    with open('input/input.txt') as f:
+    with open(path) as f:
         input_list = f.read().split('\n')
 
     truncated_list = list(filter(None, input_list))
@@ -41,7 +43,7 @@ def search_minima(map):
             neighbours = get_neighbours(map, i, j)
 
             if element < min(neighbours):
-                print(f"Element {element} in location {i, j} has been found to be smaller than {neighbours}")
+                # print(f"Element {element} in location {i, j} has been found to be smaller than {neighbours}")
                 local_minima.append((i, j))
             
 

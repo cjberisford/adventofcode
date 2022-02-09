@@ -1,6 +1,8 @@
+from pathlib import Path
+path = Path(__file__).parent / "input/input.txt"
 
 report = []
-with open("input/input.txt") as f:
+with open(path) as f:
     for line in f:
         report.append(line.strip())
 
